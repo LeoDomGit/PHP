@@ -37,8 +37,9 @@
                         <input type="password" class="form-control" name="password2" placeholder="Password">
                     </div>
                     <div class="row">
-                        <div class="col-md-3">
+                        <div class="col-md-3 d-flex">
                             <button class="btn btn-primary w-100" type="submit">Đăng ký</button>
+                            <a href="login.php"></a>
                         </div>
                     </div>
                 </form>

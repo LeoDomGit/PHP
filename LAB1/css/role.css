@@ -1,0 +1,22 @@
+.mainContainer{
+    width: 100%;
+    display: grid;
+    grid-template-columns: 15% 85%;
+}
+.mainContainer>.col-md:first-child{
+    min-height: 968px !important;
+}
+.list-group{
+    border-radius: 0px;
+
+}
+.list-group>li{
+    background-color: black !important;
+    color: white !important;
+    border:none;
+    line-height: 40px;
+    cursor: pointer;
+}
+span{
+    font-weight: normal;
+}

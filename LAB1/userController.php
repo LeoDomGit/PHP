@@ -1,0 +1,43 @@
+<?php
+    require_once('pdo.php');
+    date_default_timezone_set('Asia/Ho_Chi_Minh');
+    $conn= pdo_get_connection();
+    if(isset($_GET['action'])){
+        switch ($_GET['action']) {
+            case 'createUser':
+                if(!isset($_POST['username'])||!isset($_POST['password'])||!isset($_POST['password2'])){
+                    echo "Thiếu thông tin tài khoản";
+                }else if($_POST['username']==''||$_POST['password']==''||$_POST['password2']==''){
+                    echo 'Bạn phải nhập đủ tên tài khoản và 2 lần mật khẩu';
+                }else if($_POST['password']!=$_POST['password2']){
+                    echo "Mật khẩu 2 không trùng với mật khẩu ban đầu";
+                }else{
+                    $password=md5($_POST['password']);
+                    $sql = "INSERT INTO users(username,password,created_at) VALUES('".$_POST['username']."','".$password."','".date("Y-m-d H:i:s")."')";
+                    pdo_execute($sql);
+                    header('location:login.php');
+                }
+                break;
+            case 'checkLogin':
+                if(!isset($_POST['username'])||!isset($_POST['password'])){
+                    echo "Thiếu thông tin tài khoản";
+                }else if($_POST['username']==''||$_POST['password']==''){
+                    echo 'Bạn phải nhập đủ tên tài khoản hoặc mật khẩu';
+                }else{
+                    $password=md5($_POST['password']);  
+                    $sql="SELECT * FROM users where username='".$_POST['username']."' and password='".$password."'";
+                    $result=pdo_query($sql);
+                    $check=count($result);
+                    if($check==0){
+                        echo "Sai tên đăng nhập hoặc mật khẩu";
+                    }else{
+                        heaader('location:user.php');
+                    }
+                }
+                break;
+            default:
+                # code...
+                break;
+        }
+    }
+?>

@@ -1,0 +1,30 @@
+.mainContainer{
+    width: 99.4%;
+    display: grid;
+    grid-template-columns: 15% 85%;
+    min-height: 952px
+}
+.mainContainer>.col-md:first-child{
+    height: 100% !important;
+}
+.list-group{
+    border-radius: 0px;
+
+}
+.list-group>li{
+    background-color: black !important;
+    color: white !important;
+    border:none;
+    line-height: 40px;
+    cursor: pointer;
+}
+span{
+    font-weight: normal;
+}
+.urllink{
+    text-decoration: none;
+    color:white
+}
+.urllink:hover{
+    color:yellow;
+}

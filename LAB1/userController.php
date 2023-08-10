@@ -31,6 +31,7 @@
                     if($check==0){
                         echo "Sai tên đăng nhập hoặc mật khẩu";
                     }else{
+                        $_SESSION['username']=$_POST['username'];
                         heaader('location:user.php');
                     }
                 }

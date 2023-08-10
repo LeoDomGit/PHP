@@ -1,9 +1,7 @@
 <?php 
-require_once('pdo.php');
-$conn= pdo_get_connection();
-
-    // $sql = "SELECT * FROM roles_tbl";
-    // $userroles = pdo_query($sql);
+if(!isset($_SESSION['username'])||$_SESSION['username']==''){
+    header('location:login.php');
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">

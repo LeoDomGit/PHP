@@ -1,12 +1,5 @@
-<?php 
-    session_start();
-if(!isset($_SESSION['username'])||$_SESSION['username']==''){
-    header('location:login.php');
-}
-?>
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -19,12 +12,13 @@ if(!isset($_SESSION['username'])||$_SESSION['username']==''){
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="css/role.css">
 </head>
-
 <body>
-    <div class="mainContainer">
+<div class="mainContainer">
     <div class="col-md bg-dark">
             <ul class="list-group">
                 <li class="list-group-item active" aria-current="true">Tài khoản</li>
+                <li class="list-group-item" aria-current="true">Loại tài khoản</li>
+
                 <li class="list-group-item"><a class="urllink" href="logout.php">Đăng xuất</a></li>
             </ul>
         </div>
@@ -78,7 +72,5 @@ if(!isset($_SESSION['username'])||$_SESSION['username']==''){
             
         </div>
     </div>
-
 </body>
-
 </html>

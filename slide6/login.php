@@ -33,8 +33,9 @@
                         <input type="password"  name="password" class="form-control" placeholder="Password">
                     </div>
                     <div class="row">
-                        <div class="col-md-3">
-                            <button class="btn btn-primary w-100" type="submit">Đăng nhập</button>
+                        <div class="col-md-4 d-flex">
+                            <button class="btn btn-primary" type="submit">Đăng nhập</button>
+                            <a class="btn btn-warning" href="register.php">Đăng ký</a>
                         </div>
                     </div>
                 </form>

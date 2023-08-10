@@ -1,6 +1,7 @@
 <?php
     require_once('pdo.php');
     date_default_timezone_set('Asia/Ho_Chi_Minh');
+    session_start();
     $conn= pdo_get_connection();
     if(isset($_GET['action'])){
         switch ($_GET['action']) {
@@ -32,7 +33,7 @@
                         echo "Sai tên đăng nhập hoặc mật khẩu";
                     }else{
                         $_SESSION['username']=$_POST['username'];
-                        heaader('location:user.php');
+                        header('location:user.php');
                     }
                 }
                 break;

@@ -1,4 +1,5 @@
 <?php 
+    session_start();
 if(!isset($_SESSION['username'])||$_SESSION['username']==''){
     header('location:login.php');
 }
@@ -24,7 +25,7 @@ if(!isset($_SESSION['username'])||$_SESSION['username']==''){
     <div class="col-md bg-dark">
             <ul class="list-group">
                 <li class="list-group-item active" aria-current="true">Tài khoản</li>
-                <!-- <li class="list-group-item">Tài khoản</li> -->
+                <li class="list-group-item"><a class="urllink" href="logout.php">Đăng xuất</a></li>
             </ul>
         </div>
         <div class="col-md">

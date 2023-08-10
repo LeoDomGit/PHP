@@ -26,11 +26,11 @@
                 <form action="userController.php?action=checkLogin" method="post">
                     <div class="d-flex">
                         <p class="icon"><i class='bx bx-user'></i></p> 
-                        <input type="text" class="form-control" placeholder="Username">
+                        <input type="text" name="username" class="form-control" placeholder="Username">
                     </div>
                     <div class="d-flex">
                         <p class="icon"><i class='bx bx-lock-open-alt' ></i></p> 
-                        <input type="text" class="form-control" placeholder="Password">
+                        <input type="password"  name="password" class="form-control" placeholder="Password">
                     </div>
                     <div class="row">
                         <div class="col-md-3">

@@ -1,10 +1,11 @@
 .mainContainer{
-    width: 100%;
+    width: 99.4%;
     display: grid;
     grid-template-columns: 15% 85%;
+    min-height: 952px
 }
 .mainContainer>.col-md:first-child{
-    min-height: 968px !important;
+    height: 100% !important;
 }
 .list-group{
     border-radius: 0px;
@@ -19,4 +20,11 @@
 }
 span{
     font-weight: normal;
+}
+.urllink{
+    text-decoration: none;
+    color:white
+}
+.urllink:hover{
+    color:yellow;
 }

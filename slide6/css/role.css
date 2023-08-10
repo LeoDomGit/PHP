@@ -2,7 +2,7 @@
     width: 99.4%;
     display: grid;
     grid-template-columns: 15% 85%;
-    min-height: 952px
+    min-height: 969px;
 }
 .mainContainer>.col-md:first-child{
     height: 100% !important;

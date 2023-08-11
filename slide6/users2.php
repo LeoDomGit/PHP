@@ -6,6 +6,8 @@ if (!isset($_SESSION['username']) || $_SESSION['username'] == '') {
 require_once 'pdo.php';
 $sql = 'SELECT * FROM userroles';
 $userroles = pdo_query($sql);
+$sql = 'SELECT * FROM users inner join userroles on users.idRole=userroles.id';
+$users = pdo_query($sql);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -51,6 +53,7 @@ $userroles = pdo_query($sql);
                 </div>
             </div>
         </div>
+        <!-- =============================== -->
         <div class="modal fade" id="LoaiTaiKhoanEditModal" tabindex="-1" aria-labelledby="LoaiTaiKhoanEditModalLabel"
             aria-hidden="true">
             <div class="modal-dialog">
@@ -61,8 +64,8 @@ $userroles = pdo_query($sql);
                     </div>
                     <form action="userController.php?action=updateRole" method="post">
                         <div class="modal-body">
-                            <input type="text" placeholder="Tên Loại tài khoản" name="rolenameedit" id="rolenameedit"
-                                class="form-control">
+                            <input type="text" placeholder="Tên Loại tài khoản" name="rolenameedit"
+                                id="rolenameedit" class="form-control">
                             <input type="hidden" name="idLTK" id="idLTKEdit">
                         </div>
                         <div class="modal-footer">
@@ -75,44 +78,6 @@ $userroles = pdo_query($sql);
             </div>
         </div>
         <!-- =============================== -->
-        <div class="modal fade" id="TaiKhoanModal" tabindex="-1" aria-labelledby="TaiKhoanModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-xl">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="TaiKhoanModalLabel">Modal Tài khoản</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <form action="userController.php?action=createUser" enctype="multipart/form-data" method="post">
-                        <div class="row">
-                            <div class="col-md-4">
-                                <input type="text" name="username" placeholder="Tên tài khoản" class="form-control">
-                            </div>
-                            <div class="col-md-4">
-                                <input type="password" placeholder="Mật khẩu" name="password" class="form-control">
-                            </div>
-                            <div class="col-md-4">
-                                <select name="idRole" id="" class="form-control">
-                                    <?php
-                                    foreach ($userroles as $key => $value) {?>
-                                        <option value="<?=$value['id']?>"><?=$value['rolename']?></option>
-                                    <?php }
-                                    ?>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <input type="file" name="image" id="">
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary">Lưu</button>
-                    </div>
-                    </form>
-                </div>
-            </div>
-        </div>
         <div class="col-md bg-dark">
             <ul class="list-group">
                 <li class="list-group-item active" aria-current="true">Tài khoản</li>
@@ -130,11 +95,13 @@ $userroles = pdo_query($sql);
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                             <li class="nav-item">
-                                <a class="nav-link active" aria-current="page" id="addUserRoleBtn" href="#">Thêm
+                                <a class="nav-link active" aria-current="page" id="addUserRoleBtn"
+                                    href="#">Thêm
                                     loại </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link active" aria-current="page" id="addUserBtn" href="#">Thêm tài
+                                <a class="nav-link active" aria-current="page" id="addUserBtn" href="#">Thêm
+                                    tài
                                     khoản</a>
                             </li>
                             <!-- <li class="nav-item">
@@ -167,7 +134,7 @@ $userroles = pdo_query($sql);
                 </div>
             </nav>
             <div class="row p-3">
-                <div class="col-md-4">
+                <div class="col-md-5">
                     <div class="table-responsive">
                         <table class="table table-primary">
                             <thead>
@@ -185,9 +152,11 @@ $userroles = pdo_query($sql);
 
                                     </td>
                                     <td><?= date('H:i - d/y/20y', strtotime($value['created_at'])) ?></td>
-                                    <td> <button class="btn-sm btn-warning editRoleBtn" data-value="<?= $value['rolename'] ?>"
+                                    <td> <button class="btn-sm btn-warning editRoleBtn"
+                                            data-value="<?= $value['rolename'] ?>"
                                             data-id="<?= $value['id'] ?>">Sửa</button>
-                                        <button class="btn-sm btn-danger deleteUserRole" data-id="<?= $value['id'] ?>">Xóa</button>
+                                        <button class="btn-sm btn-danger deleteUserRole"
+                                            data-id="<?= $value['id'] ?>">Xóa</button>
                                     </td>
                                 </tr>
                                 <?php } ?>
@@ -195,12 +164,120 @@ $userroles = pdo_query($sql);
                             </tbody>
                         </table>
                     </div>
+                    <div class="table-responsive">
+                        <table class="table table-primary">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Tên tài khoản</th>
+                                    <th scope="col">Loại tài khoản</th>
+                                    <th scope="col">Tình trạng</th>
+                                    <th scope="col">Tùy chỉnh</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php
+                                foreach ($users as $key => $value) {?>
+                                    <tr class="">
+                                    <td scope="row"><?=$value['username']?></td>
+                                    <td><?=$value['rolename']?></td>
+                                    <td>
+                                        <?php if($value['status']==0){?>
+                                                <b class="statususer" data-id="<?=$value['id']?>">Đang khóa</b>
+                                        <?php    }else { ?>
+                                                <b class="statususer" data-id="<?=$value['id']?>">Đang mở</b>
+                                         <?php   } ?>
+                                    </td>
+                                    <td>
+                                        <button class="btn btn-warning">Sửa</button>
+                                        <button class="btn btn-danger">Xóa</button>
+                                    </td>
+                                </tr>
+                               <?php }
+                                
+                                ?>
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                </div>
+                <div class="col-md-4">
+
+                </div>
+                <div class="col-md">
+                    <form action="userController.php?action=createUser" enctype="multipart/form-data" id="createUserForm" method="post">
+                        <div class="row w-100">
+                            <div class="col-md">
+                                <input type="text" name="username" placeholder="Tên tài khoản"
+                                    class="form-control">
+                            </div>
+                        </div>
+                        <div class="row mt-2 w-100">
+                            <div class="col-md">
+                                <input type="password" placeholder="Mật khẩu" name="password"
+                                    class="form-control">
+                            </div>
+                        </div>
+                        <div class="row  mt-2 w-100">
+                            <div class="col-md">
+                                <select name="idRole" id="" class="form-control">
+                                    <?php
+                                    foreach ($userroles as $key => $value) {?>
+                                    <option value="<?= $value['id'] ?>"><?= $value['rolename'] ?></option>
+                                    <?php }
+                                    ?>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row mt-3">
+                            <input type="file" name="image" id="">
+                        </div>
+                        <div class="row mt-2 p-2 ">
+                            <button type="submit" class="btn btn-primary w-50">Lưu</button>
+                        </div>
+                        
+                </form>
+                <form action="userController.php?action=updateUser" enctype="multipart/form-data" id="updateUserForm" method="post">
+                        <div class="row w-100">
+                            <div class="col-md">
+                                <input type="hidden" name="idUser" id="idUser">
+                                <input type="text" name="username" placeholder="Tên tài khoản"
+                                    class="form-control">
+                            </div>
+                        </div>
+                        <div class="row mt-2 w-100">
+                            <div class="col-md">
+                                <input type="password" placeholder="Mật khẩu" name="password"
+                                    class="form-control">
+                            </div>
+                        </div>
+                        <div class="row  mt-2 w-100">
+                            <div class="col-md">
+                                <select name="idRole" id="" class="form-control">
+                                    <?php
+                                    foreach ($userroles as $key => $value) {?>
+                                    <option value="<?= $value['id'] ?>"><?= $value['rolename'] ?></option>
+                                    <?php }
+                                    ?>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row mt-3">
+                            <input type="file" name="image" id="">
+                        </div>
+                        <div class="row mt-2 p-2 ">
+                            <button type="submit" class="btn btn-primary w-50">Lưu</button>
+                        </div>
+                </form>
+                </div>
+
+           
 
                 </div>
 
             </div>
-
         </div>
+
+    </div>
     </div>
     <script src="js/users2.js"></script>
 </body>

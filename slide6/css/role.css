@@ -3,6 +3,7 @@
     display: grid;
     grid-template-columns: 15% 85%;
     min-height: 969px;
+    font-family: 'Times New Roman', Times, serif;
 }
 .mainContainer>.col-md:first-child{
     height: 100% !important;

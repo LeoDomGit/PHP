@@ -1,8 +1,11 @@
 <?php
-//     session_start();
-// if(!isset($_SESSION['username'])||$_SESSION['username']==''){
-//     header('location:login.php');
-// }
+    session_start();
+if(!isset($_SESSION['username'])||$_SESSION['username']==''){
+    // header('location:login.php');
+}
+require_once('pdo.php');
+$sql = "SELECT * FROM userroles";
+$userroles=pdo_query($sql);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -33,13 +36,16 @@
                         <h5 class="modal-title" id="LoaiTaiKhoanModalLabel">Loại tài khoản</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
+                    <form action="userController.php?action=createRole" method="post">
                     <div class="modal-body"> 
-                        <input type="text" placeholder="Tên Loại tài khoản" id="rolename" class="form-control">
+                        <input type="text" placeholder="Tên Loại tài khoản" name="rolename" id="rolename" class="form-control">
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
-                        <button type="button" class="btn btn-primary" id="submitLoaiTaiKhoan">Lưu</button>
+                        <button type="submit" class="btn btn-primary" >Lưu</button>
+                        
                     </div>
+                    </form>
                 </div>
             </div>
         </div>
@@ -62,6 +68,9 @@
                             <li class="nav-item">
                                 <a class="nav-link active" aria-current="page" id="addUserRoleBtn" href="#">Thêm
                                     loại </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link active" aria-current="page" id="addUserBtn" href="#">Thêm tài khoản</a>
                             </li>
                             <!-- <li class="nav-item">
                                 <a class="nav-link" href="#">Link</a>
@@ -92,15 +101,40 @@
                 </div>
             </nav>
             <div class="row p-3">
-                <div class="col-md-5">
-                    Dashboard
+                <div class="col-md-4">
+                    <div class="table-responsive">
+                        <table class="table table-primary">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Tên loại</th>
+                                    <th scope="col">Ngày tạo</th>
+                                    <th scope="col">Tùy chọn</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php foreach ($userroles as $key => $value) {?>
+                                    <tr class="">
+                                    <td scope="row">
+                                        <b><?=$value['rolename']?></b><br>
+
+                                    </td>
+                                    <td><?=date('H:i - d/y/20y',strtotime($value['created_at']))?></td>
+                                    <td>                                    <button class="btn-sm btn-warning" data-value="<?=$value['rolename']?>" data-id="<?=$value['id']?>">Sửa</button>
+                                    <button class="btn-sm btn-danger" data-id="<?=$value['id']?>">Xóa</button></td>
+                                </tr>
+                                <?php } ?>
+
+                            </tbody>
+                        </table>
+                    </div>
+                    
                 </div>
 
             </div>
 
         </div>
     </div>
-    <script src="js/users.js"></script>
+    <script src="js/users2.js"></script>
 </body>
 
 </html>

@@ -5,6 +5,22 @@
     $conn= pdo_get_connection();
     if(isset($_GET['action'])){
         switch ($_GET['action']) {
+            case 'createRole':
+                if(!isset($_POST['rolename'])||$_POST['rolename']==''){
+                    echo "Thiếu tên loại tài khoản";
+                }else{
+                    $sql="SELECT * FROM userroles where rolename='".$_POST['rolename']."'";
+                    $result=pdo_query($sql);
+                    $check= count($result);
+                    if($check!=0){
+                        echo "Đã tồn tại loại tài khoản";
+                    }else{
+                        $sql = "INSERT INTO userroles(rolename,created_at) VALUES('".$_POST['rolename']."','".date("Y-m-d H:i:s")."')";
+                        pdo_execute($sql);
+                        header('location:users2.php');
+                    }
+                }
+                break;
             case 'createUser':
                 if(!isset($_POST['username'])||!isset($_POST['password'])||!isset($_POST['password2'])){
                     echo "Thiếu thông tin tài khoản";

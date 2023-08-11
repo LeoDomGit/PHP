@@ -1,11 +1,11 @@
 <?php
-    session_start();
-if(!isset($_SESSION['username'])||$_SESSION['username']==''){
+session_start();
+if (!isset($_SESSION['username']) || $_SESSION['username'] == '') {
     // header('location:login.php');
 }
-require_once('pdo.php');
-$sql = "SELECT * FROM userroles";
-$userroles=pdo_query($sql);
+require_once 'pdo.php';
+$sql = 'SELECT * FROM userroles';
+$userroles = pdo_query($sql);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -29,7 +29,8 @@ $userroles=pdo_query($sql);
 <body>
     <div class="mainContainer">
         <!-- Modal  -->
-        <div class="modal fade" id="LoaiTaiKhoanModal" tabindex="-1" aria-labelledby="LoaiTaiKhoanModalLabel" aria-hidden="true">
+        <div class="modal fade" id="LoaiTaiKhoanModal" tabindex="-1" aria-labelledby="LoaiTaiKhoanModalLabel"
+            aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -37,13 +38,76 @@ $userroles=pdo_query($sql);
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <form action="userController.php?action=createRole" method="post">
-                    <div class="modal-body"> 
-                        <input type="text" placeholder="Tên Loại tài khoản" name="rolename" id="rolename" class="form-control">
+                        <div class="modal-body">
+                            <input type="text" placeholder="Tên Loại tài khoản" name="rolename" id="rolename"
+                                class="form-control">
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                            <button type="submit" class="btn btn-primary">Lưu</button>
+
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="LoaiTaiKhoanEditModal" tabindex="-1" aria-labelledby="LoaiTaiKhoanEditModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="LoaiTaiKhoanEditModalLabel">Loại tài khoản</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <form action="userController.php?action=updateRole" method="post">
+                        <div class="modal-body">
+                            <input type="text" placeholder="Tên Loại tài khoản" name="rolenameedit" id="rolenameedit"
+                                class="form-control">
+                            <input type="hidden" name="idLTK" id="idLTKEdit">
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                            <button type="submit" class="btn btn-primary">Lưu</button>
+
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <!-- =============================== -->
+        <div class="modal fade" id="TaiKhoanModal" tabindex="-1" aria-labelledby="TaiKhoanModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-xl">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="TaiKhoanModalLabel">Modal Tài khoản</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form action="userController.php?action=createUser" enctype="multipart/form-data" method="post">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <input type="text" name="username" placeholder="Tên tài khoản" class="form-control">
+                            </div>
+                            <div class="col-md-4">
+                                <input type="password" placeholder="Mật khẩu" name="password" class="form-control">
+                            </div>
+                            <div class="col-md-4">
+                                <select name="idRole" id="" class="form-control">
+                                    <?php
+                                    foreach ($userroles as $key => $value) {?>
+                                        <option value="<?=$value['id']?>"><?=$value['rolename']?></option>
+                                    <?php }
+                                    ?>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <input type="file" name="image" id="">
+                        </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
-                        <button type="submit" class="btn btn-primary" >Lưu</button>
-                        
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Lưu</button>
                     </div>
                     </form>
                 </div>
@@ -70,7 +134,8 @@ $userroles=pdo_query($sql);
                                     loại </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link active" aria-current="page" id="addUserBtn" href="#">Thêm tài khoản</a>
+                                <a class="nav-link active" aria-current="page" id="addUserBtn" href="#">Thêm tài
+                                    khoản</a>
                             </li>
                             <!-- <li class="nav-item">
                                 <a class="nav-link" href="#">Link</a>
@@ -94,7 +159,8 @@ $userroles=pdo_query($sql);
                             </li> -->
                         </ul>
                         <form class="d-flex">
-                            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                            <input class="form-control me-2" type="search" placeholder="Search"
+                                aria-label="Search">
                             <button class="btn btn-outline-success" type="submit">Search</button>
                         </form>
                     </div>
@@ -113,21 +179,23 @@ $userroles=pdo_query($sql);
                             </thead>
                             <tbody>
                                 <?php foreach ($userroles as $key => $value) {?>
-                                    <tr class="">
+                                <tr class="">
                                     <td scope="row">
-                                        <b><?=$value['rolename']?></b><br>
+                                        <b><?= $value['rolename'] ?></b><br>
 
                                     </td>
-                                    <td><?=date('H:i - d/y/20y',strtotime($value['created_at']))?></td>
-                                    <td>                                    <button class="btn-sm btn-warning" data-value="<?=$value['rolename']?>" data-id="<?=$value['id']?>">Sửa</button>
-                                    <button class="btn-sm btn-danger" data-id="<?=$value['id']?>">Xóa</button></td>
+                                    <td><?= date('H:i - d/y/20y', strtotime($value['created_at'])) ?></td>
+                                    <td> <button class="btn-sm btn-warning editRoleBtn" data-value="<?= $value['rolename'] ?>"
+                                            data-id="<?= $value['id'] ?>">Sửa</button>
+                                        <button class="btn-sm btn-danger deleteUserRole" data-id="<?= $value['id'] ?>">Xóa</button>
+                                    </td>
                                 </tr>
                                 <?php } ?>
 
                             </tbody>
                         </table>
                     </div>
-                    
+
                 </div>
 
             </div>

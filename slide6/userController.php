@@ -5,6 +5,23 @@
     $conn= pdo_get_connection();
     if(isset($_GET['action'])){
         switch ($_GET['action']) {
+            case 'createUser':
+                if(!isset($_POST['username'])||$_POST['username']==''||!isset($_POST['password'])||$_POST['password']==''||!isset($_POST['idRole'])||$_POST['idRole']==''||!isset($_FILES['image'])){
+                    echo "Thiếu thông tin tài khoản";
+                }else{
+                    $sql = "SELECT * FROM users where username='".$_POST['username']."'";
+                    $result=pdo_query($sql);
+                    $check=count($result);
+                    if($check!=0){
+                        echo "Đã tồn tại tài khoản";
+                    }else{
+                        $password=md5($_POST['password']);
+                        $image=$_FILES['image']['name'];
+                        $sql = "INSERT INTO users(username,password,image,idRole,created_at) VALUES('".$_POST['username']."','".$password."')"
+                    }
+                }
+                
+                break;
             case 'createRole':
                 if(!isset($_POST['rolename'])||$_POST['rolename']==''){
                     echo "Thiếu tên loại tài khoản";
@@ -16,6 +33,38 @@
                         echo "Đã tồn tại loại tài khoản";
                     }else{
                         $sql = "INSERT INTO userroles(rolename,created_at) VALUES('".$_POST['rolename']."','".date("Y-m-d H:i:s")."')";
+                        pdo_execute($sql);
+                        header('location:users2.php');
+                    }
+                }
+                break;
+            case 'updateRole':
+                if(!isset($_POST['rolenameedit'])||$_POST['rolenameedit']==''||!isset($_POST['idLTK'])||$_POST['idLTK']==''){
+                    echo "Thiếu tên loại tài khoản";
+                }else{
+                    $sql = "SELECT * FROM userroles where id!=".$_POST['idLTK']." and rolename='".$_POST['rolenameedit']."'";
+                    $result = pdo_query($sql);
+                    $check=count($result);  
+                    if($check!=0){
+                        echo "Đã tồn tại loại tài khoản";
+                    }else{
+                        $sql = "UPDATE userroles SET rolename='".$_POST['rolenameedit']."' WHERE id=".$_POST['idLTK'];
+                        pdo_execute($sql);
+                        header('location:users2.php');
+                    }
+                }
+                break;
+            case 'deleteRole':
+                if(!isset($_GET['id'])||$_GET['id']==''){
+                    echo "Thiếu tên loại tài khoản";
+                }else{
+                    $sql = "SELECT * FROM users WHERE idRole=".$_GET['id'];
+                    $result = pdo_query($sql);
+                    $check=count($result);  
+                    if($check!=0){
+                        echo "Tồn tại tài khoản trong loại";
+                    }else{
+                        $sql = "DELETE from userroles WHERE id=".$_GET['id'];
                         pdo_execute($sql);
                         header('location:users2.php');
                     }

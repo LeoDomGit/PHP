@@ -3,6 +3,7 @@ $(document).ready(function () {
     editLoaiTaiKhoan();
     deleteLoaiTaiKhoan();
     addUser();
+    $("#updateUserForm").hide();
 });
 function deleteLoaiTaiKhoan(){
     $(".deleteUserRole").click(function (e) { 

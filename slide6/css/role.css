@@ -29,3 +29,6 @@ span{
 .urllink:hover{
     color:yellow;
 }
+.statususer{
+    cursor: pointer;
+}

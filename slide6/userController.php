@@ -17,7 +17,8 @@
                     }else{
                         $password=md5($_POST['password']);
                         $image=$_FILES['image']['name'];
-                        $sql = "INSERT INTO users(username,password,image,idRole,created_at) VALUES('".$_POST['username']."','".$password."')"
+                        $sql = "INSERT INTO users(username,password,image,idRole,created_at) VALUES('".$_POST['username']."','".$password."','".$image."','".date("Y-m-d H:i:s")."')";
+                        pdo_execute($sql);
                     }
                 }
                 

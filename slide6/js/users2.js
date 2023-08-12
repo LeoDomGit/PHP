@@ -10,7 +10,13 @@ function editUser(){
         e.preventDefault();
         $("#createUserForm").hide();
         var username=$(this).attr('data-username');
-        console.log(username);
+        var idRole=$(this).attr('data-idRole');
+        $("#idRoleEdit").val(idRole);
+        $("#usernameedit").val(username);
+        var image='images/'+$(this).attr('data-image');
+        
+        $("#editImage").attr('src',image);
+        $("#updateUserForm").show();
     });
 }
 // =================================

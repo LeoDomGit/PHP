@@ -188,7 +188,7 @@ $users = pdo_query($sql);
                                          <?php   } ?>
                                     </td>
                                     <td>
-                                        <button class="btn btn-warning editUserBtn" data-username='<?=$value['username']?>' data-username='<?=$value['username']?>'>Sửa</button>
+                                        <button class="btn btn-warning editUserBtn" data-idRole='<?=$value['idRole']?>' data-username='<?=$value['username']?>' data-image='<?=$value['image']?>'>Sửa</button>
                                         <button class="btn btn-danger">Xóa</button>
                                     </td>
                                 </tr>
@@ -254,6 +254,9 @@ $users = pdo_query($sql);
                                     ?>
                                 </select>
                             </div>
+                        </div>
+                        <div class="row mt-2">
+                        <img src="" style="width:70%" alt="" class="mt-2" id="editImage">
                         </div>
                         <div class="row mt-3">
                             <input type="file" name="image" id="">

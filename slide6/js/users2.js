@@ -2,9 +2,18 @@ $(document).ready(function () {
     addLoaiTaiKhoan();
     editLoaiTaiKhoan();
     deleteLoaiTaiKhoan();
-    addUser();
+    addUser();editUser();
     $("#updateUserForm").hide();
 });
+function editUser(){
+    $(".editUserBtn").click(function (e) { 
+        e.preventDefault();
+        $("#createUserForm").hide();
+        var username=$(this).attr('data-username');
+        console.log(username);
+    });
+}
+// =================================
 function deleteLoaiTaiKhoan(){
     $(".deleteUserRole").click(function (e) { 
         e.preventDefault();

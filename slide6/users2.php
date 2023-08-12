@@ -188,7 +188,7 @@ $users = pdo_query($sql);
                                          <?php   } ?>
                                     </td>
                                     <td>
-                                        <button class="btn btn-warning">Sửa</button>
+                                        <button class="btn btn-warning editUserBtn" data-username='<?=$value['username']?>' data-username='<?=$value['username']?>'>Sửa</button>
                                         <button class="btn btn-danger">Xóa</button>
                                     </td>
                                 </tr>
@@ -240,19 +240,13 @@ $users = pdo_query($sql);
                         <div class="row w-100">
                             <div class="col-md">
                                 <input type="hidden" name="idUser" id="idUser">
-                                <input type="text" name="username" placeholder="Tên tài khoản"
-                                    class="form-control">
-                            </div>
-                        </div>
-                        <div class="row mt-2 w-100">
-                            <div class="col-md">
-                                <input type="password" placeholder="Mật khẩu" name="password"
+                                <input type="text" name="username" id="usernameedit"  placeholder="Tên tài khoản"
                                     class="form-control">
                             </div>
                         </div>
                         <div class="row  mt-2 w-100">
                             <div class="col-md">
-                                <select name="idRole" id="" class="form-control">
+                                <select name="idRole" id="idRoleEdit" class="form-control">
                                     <?php
                                     foreach ($userroles as $key => $value) {?>
                                     <option value="<?= $value['id'] ?>"><?= $value['rolename'] ?></option>

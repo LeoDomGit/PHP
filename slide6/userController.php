@@ -25,23 +25,35 @@ if (isset($_GET['action'])) {
             }
 
             break;
-        case 'updateUsername':
-            if (!isset($_POST['username']) || $_POST['username'] == '' || !isset($_POST['id'])) {
+        case 'updateUser':
+            if (!isset($_POST['idUser']) || $_POST['username'] == '' || $_POST['idRole'] == '') {
                 echo 'Thiếu thông tin tài khoản';
             } else {
-                $sql = 'SELECT * FROM users where id!=' . $_POST['id'] . " and username='" . $_POST['username'] . "'";
-                $result = pdo_query($sql);
+                $sql1= "SELECT * FROM users where id!=".$_POST['idUser']." and username='".$_POST['username']."'";
+                $result = pdo_query($sql1);
                 $check = count($result);
                 if ($check != 0) {
-                    echo 'Đã tồn tại tên tài khoản';
+                    echo 'Đã tồn tại tài khoản';
                 } else {
-                    $sql = "UPDATE users SET username='" . $_POST['username'] . "' where id=" . $_POST['id'];
-                    pdo_execute($sql);
-                    header('location:users2.php');
+                    if(!isset($_FILES['image'])|| $_FILES['image']['name']=='' ){
+                        $sql = "UPDATE users SET username = '".$_POST['username']."',idRole=".$_POST['idRole']."";
+                    }else{
+                        $sql2= "SELECT image where id=".$_POST['idUser']."";
+                        $image=pdo_query_value($sql2);
+                        $filepath='images/'.$image;
+                        unlink($filepath);
+                        $image= $_FILES['image']['name'];
+                        $sql = "UPDATE users SET username = '".$_POST['username']."',idRole=".$_POST['idRole'].",image='".$image."'";
+                        move_uploaded_file($_FILES['image']['tmp_name'], 'images/' . $image);
+                    }
+                    // echo $sql;
+                        pdo_execute($sql);
+                        header('location:users2.php');
                 }
             }
 
             break;
+
         case 'updatepassword':
             if (!isset($_POST['username']) || $_POST['username'] == '' || !isset($_POST['id'])) {
                 echo 'Thiếu thông tin tài khoản';

@@ -188,7 +188,7 @@ $users = pdo_query($sql);
                                          <?php   } ?>
                                     </td>
                                     <td>
-                                        <button class="btn btn-warning editUserBtn" data-idRole='<?=$value['idRole']?>' data-username='<?=$value['username']?>' data-image='<?=$value['image']?>'>Sửa</button>
+                                        <button class="btn btn-warning editUserBtn" data-id='<?=$value['id']?>' data-idRole='<?=$value['idRole']?>' data-username='<?=$value['username']?>' data-image='<?=$value['image']?>'>Sửa</button>
                                         <button class="btn btn-danger">Xóa</button>
                                     </td>
                                 </tr>
@@ -229,7 +229,7 @@ $users = pdo_query($sql);
                             </div>
                         </div>
                         <div class="row mt-3">
-                            <input type="file" name="image" id="">
+                            <input type="file" name="image">
                         </div>
                         <div class="row mt-2 p-2 ">
                             <button type="submit" class="btn btn-primary w-50">Lưu</button>
@@ -239,7 +239,7 @@ $users = pdo_query($sql);
                 <form action="userController.php?action=updateUser" enctype="multipart/form-data" id="updateUserForm" method="post">
                         <div class="row w-100">
                             <div class="col-md">
-                                <input type="hidden" name="idUser" id="idUser">
+                                <input type="hidden" name="idUser" id="idUseredit">
                                 <input type="text" name="username" id="usernameedit"  placeholder="Tên tài khoản"
                                     class="form-control">
                             </div>
@@ -259,7 +259,7 @@ $users = pdo_query($sql);
                         <img src="" style="width:70%" alt="" class="mt-2" id="editImage">
                         </div>
                         <div class="row mt-3">
-                            <input type="file" name="image" id="">
+                            <input type="file" name="image">
                         </div>
                         <div class="row mt-2 p-2 ">
                             <button type="submit" class="btn btn-primary w-50">Lưu</button>

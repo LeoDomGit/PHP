@@ -11,8 +11,11 @@ function editUser(){
         $("#createUserForm").hide();
         var username=$(this).attr('data-username');
         var idRole=$(this).attr('data-idRole');
+        var id=$(this).attr('data-id');
         $("#idRoleEdit").val(idRole);
         $("#usernameedit").val(username);
+        $("#idUseredit").val(id);
+
         var image='images/'+$(this).attr('data-image');
         
         $("#editImage").attr('src',image);

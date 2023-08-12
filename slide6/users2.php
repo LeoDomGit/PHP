@@ -6,7 +6,7 @@ if (!isset($_SESSION['username']) || $_SESSION['username'] == '') {
 require_once 'pdo.php';
 $sql = 'SELECT * FROM userroles';
 $userroles = pdo_query($sql);
-$sql = 'SELECT * FROM users inner join userroles on users.idRole=userroles.id';
+$sql = 'SELECT users.id as id,users.idRole as idRole, users.username as username,userroles.rolename as rolename,users.image as image, users.status as status,users.created_at as created_at FROM users inner join userroles on users.idRole=userroles.id';
 $users = pdo_query($sql);
 ?>
 <!DOCTYPE html>

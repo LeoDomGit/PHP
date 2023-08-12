@@ -38,7 +38,8 @@ if (isset($_GET['action'])) {
                     if(!isset($_FILES['image'])|| $_FILES['image']['name']=='' ){
                         $sql = "UPDATE users SET username = '".$_POST['username']."',idRole=".$_POST['idRole']."";
                     }else{
-                        $sql2= "SELECT image where id=".$_POST['idUser']."";
+                        echo $_POST['idUser'];
+                        $sql2= "SELECT image from users where id=".$_POST['idUser']."";
                         $image=pdo_query_value($sql2);
                         $filepath='images/'.$image;
                         unlink($filepath);
